@@ -1,0 +1,81 @@
+## Franka IP
+172.16.0.2
+
+## ping test
+sudo ping 172.16.0.2 -i 0.001 -D -c 10000 -s 1200
+
+
+## source
+source ./devel/setup.bash
+
+## communication test and initial state
+communication_test 172.16.0.2
+
+## Start to control the Franka
+roslaunch panda_moveit_config franka_control.launch robot_ip:=172.16.0.2 load_gripper:=true
+
+## To recover from the errors and reflexes when the robot is in reflex mode
+rostopic pub -1 /franka_control/error_recovery/goal franka_msgs/ErrorRecoveryActionGoal "{}"
+
+## Cartesian impedance control the Franka
+roslaunch franka_example_controllers cartesian_impedance_example_controller.launch robot_ip:=172.16.0.2
+
+## Force control the Franka
+roslaunch franka_example_controllers force_impedance_example_controller.launch robot_ip:=172.16.0.2
+
+
+
+
+
+
+## MoveIt Franka
+roslaunch panda_moveit_config demo.launch
+
+## Open RViz with Gazebo
+roslaunch panda_moveit_config demo_gazebo.launch
+
+roslaunch franka_gazebo panda.launch x:=-0.5 \
+    world:=$(rospack find franka_gazebo)/world/stone.sdf \
+    controller:=cartesian_impedance_example_controller \
+    rviz:=true
+
+## realsense demo
+rosrun realsense_demo joint_state.py
+
+## record the joint trajectory into .csv
+rosrun realsense_demo joint_record_csv.py
+
+## record the cartesian trajectory into .csv
+rosrun realsense_demo cartesian_record_csv.py
+
+## record the LfD trajectory into .csv
+rosrun realsense_demo lfd_record.py
+
+## Execute the recorded trajectory or other trajectory demo
+rosrun realsense_demo lfd_execute.py
+
+
+
+
+##
+## Movement Primitives
+##
+
+
+## ProMPs in file /movement_primitives/PROMP
+## You can use lfd_record.py to record the human demo that can be used in this ProMPs
+## Finally using lfd_execute.py to execute the trajectory
+rosrun realsense_demo lfd_record.py
+conda activate realsense_ws
+python plot_franka_promp.py
+rosrun realsense_demo lfd_execute.py
+
+
+## DMP in file /movement_primitives/PyDMPa_Chauby
+## You can use cartesian_record_csv.py to record the cartesian demo
+## run the trajectories demo
+rosrun realsense_demo move_arm.py
+conda activate realsense_ws
+python demo_discrete_DMP_UR5_gazebo.py
+
+

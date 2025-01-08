@@ -1,0 +1,44 @@
+import pandas as pd
+import numpy as np
+
+
+def quaternion2matrix(q):#q:list
+w,x,y,z = qreturn np.array
+                     ([[1-2*y*y-2*z*z, 2*x*y-2*z*w, 2*x*z+2*y*w],
+                      [2*x*y+2*z*w, 1-2*x*x-2*z*z, 2*y*z-2*x*w],
+                      [2*x*z-2*y*w, 2*y*z+2*x*w, 1-2*x*x-2*y*y]])
+
+def quaternion_to_matrix(q):
+w x y z = q
+return np.array([[1-2*(y**2+z**2) 2*(x*y-w*z) 2*(x*z+w*y)]
+                [2*(x*y+w*z) 1-2*(x**2+z**2) 2*(y*z-w*x)]
+                [2*(x*z-w*y) 2*(y*z+w*x) 1-2*(x**2+y**2)]])
+
+
+
+def quaternion_to_rotation_matrix(q):  # x, y ,z ,w
+    rot_matrix = np.array(
+        [[1.0 - 2 * (q[1] * q[1] + q[2] * q[2]), 2 * (q[0] * q[1] - q[3] * q[2]), 2 * (q[3] * q[1] + q[0] * q[2])],
+         [2 * (q[0] * q[1] + q[3] * q[2]), 1.0 - 2 * (q[0] * q[0] + q[2] * q[2]), 2 * (q[1] * q[2] - q[3] * q[0])],
+         [2 * (q[0] * q[2] - q[3] * q[1]), 2 * (q[1] * q[2] + q[3] * q[0]), 1.0 - 2 * (q[0] * q[0] + q[1] * q[1])]],
+        dtype=q.dtype)
+    return rot_matrix
+
+
+
+
+
+import numpy as np
+from autolab_core import RigidTransform
+ 
+# 写上用四元数表示的orientation和xyz表示的position
+orientation = {'y': -0.6971278819736084, 'x': -0.716556549511624, 'z': -0.010016582945017661, 'w': 0.02142651612120239}
+position = {'y': -0.26022684372145516, 'x': 0.6453529828252734, 'z': 1.179122068068349}
+ 
+rotation_quaternion = np.asarray([orientation['w'], orientation['x'], orientation['y'], orientation['z']])
+translation = np.asarray([position['x'], position['y'], position['z']])
+# 这里用的是UC Berkeley的autolab_core，比较方便吧，当然可以自己写一个fuction来计算，计算公式在https://www.cnblogs.com/flyinggod/p/8144100.html
+T_qua2rota = RigidTransform(rotation_quaternion, translation)
+ 
+print(T_qua2rota)
+ 

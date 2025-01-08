@@ -1,0 +1,8 @@
+prefix=/home/bobyung/MPs_ws/install
+
+Name: realsense_demo
+Description: Description of realsense_demo
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

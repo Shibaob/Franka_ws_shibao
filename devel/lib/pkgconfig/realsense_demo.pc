@@ -1,0 +1,8 @@
+prefix=/home/bobyung/MPs_ws/devel
+
+Name: realsense_demo
+Description: Description of realsense_demo
+Version: 0.0.0
+Cflags: -I/home/bobyung/MPs_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: 

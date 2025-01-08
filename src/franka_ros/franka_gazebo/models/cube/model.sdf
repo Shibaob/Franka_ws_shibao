@@ -1,0 +1,64 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+  <model name='cube'>
+    <link name='link'>
+      <!-- Set the pose of the cube so that it sits on top of the inclined plane -->
+      <!-- The z-value is set to half the height of the cube to place it resting on the plane -->
+      <!-- Adjust x and y values to position the cube where we want it on the plane -->
+      <pose>0.1 0.0 0.032 0 -0 0</pose>
+      <!-- <inertial> -->
+        <!-- <mass>0.1024</mass> -->
+        <!-- <inertia> -->
+          <!-- <ixx>4.369e-5</ixx> -->
+          <!-- <ixy>0</ixy> -->
+          <!-- <ixz>0</ixz> -->
+          <!-- <iyy>4.028e-5</iyy> -->
+          <!-- <iyz>0</iyz> -->
+          <!-- <izz>1.407e-5</izz> -->
+        <!-- </inertia> -->
+        <!-- Inertial pose generally stays as is unless you have a specific reason to change it -->
+        <!-- <pose>0 0 0 0 -0 0</pose> -->
+      <!-- </inertial> -->
+      <self_collide>0</self_collide>
+      <kinematic>0</kinematic>
+      <enable_wind>0</enable_wind>
+      <visual name='visual'>
+        <geometry>
+          <box>
+            <size>0.025 0.032 0.064</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/White</name>
+          </script>
+        </material>
+        <!-- Visual pose generally stays as is unless you have a specific reason to change it -->
+        <pose>0 0 0 0 -0 0</pose>
+        <transparency>0</transparency>
+        <cast_shadows>1</cast_shadows>
+      </visual>
+      <collision name='collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.025 0.032 0.064</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.6</mu2>
+            </ode>
+          </friction>
+          <!-- Other collision properties remain unchanged -->
+        </surface>
+      </collision>
+    </link>
+    <!-- The static tag should be '0' for movable objects like a stone -->
+    <static>0</static>
+    <allow_auto_disable>1</allow_auto_disable>
+  </model>
+</sdf>

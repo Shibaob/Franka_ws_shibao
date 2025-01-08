@@ -1,0 +1,10 @@
+(cl:defpackage realsense_demo-srv
+  (:use )
+  (:export
+   "EXECUTETRAJECTORY"
+   "<EXECUTETRAJECTORY-REQUEST>"
+   "EXECUTETRAJECTORY-REQUEST"
+   "<EXECUTETRAJECTORY-RESPONSE>"
+   "EXECUTETRAJECTORY-RESPONSE"
+  ))
+
